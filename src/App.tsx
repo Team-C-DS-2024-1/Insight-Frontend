@@ -1,16 +1,15 @@
-import TestComponent from './components/TestComponent'
-import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Main from "./components/Main";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/uwu" element={<TestComponent name={"Sebastian"} mood={"Happy"}/>}/>
+        <Route path="/" element={<Main />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
