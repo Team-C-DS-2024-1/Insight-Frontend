@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { libros, Libro } from "../data/data";
+import "../App.css"
 
 // Simulamos una pila pendiente
 class PendingStack {

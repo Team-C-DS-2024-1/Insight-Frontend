@@ -33,6 +33,27 @@ li{
     padding:0px;
 }
 
+.searchOption{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.searchOption button{
+    background-color: #99aebb;
+    color: white;
+    border: 0px;
+    width: 175px;
+    min-height: 30px;
+    border-radius: 5px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .content{
     width: 80vw;
 }
