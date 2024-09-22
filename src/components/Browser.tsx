@@ -47,7 +47,7 @@ function Browser(callbacks: props){
             </div>
             <div className="text-center">
                 <h3 className="text-lg my-4">Search by:</h3>
-                <div className="flex px-[100px] mx-[15px]">
+                <div className="flex px-[100px] mx-[550px]">
                     {options.map((o,i) => {
                         return (
                         <div className={`${options[i] == option ? "bg-[#C7C7C7]" : ""} mx-7 w-[100px] h-[23px] rounded-md text-center`}>
@@ -58,7 +58,7 @@ function Browser(callbacks: props){
                 </div>
             </div>
                     
-            <div className="px-[120px] my-5">
+            <div className="my-5 mx-[615px]">
                 {loadSearch()}
             </div>
         </div>
