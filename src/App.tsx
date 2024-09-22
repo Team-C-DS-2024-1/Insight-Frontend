@@ -1,6 +1,8 @@
 import Main from "./components/Main";
 import Test from "./components/Test";
-import "./App.css";
+import Browser from './components/Browser';
+
+//import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -8,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/test" element={<Test/>}/>
+        <Route path="/test" element={<Browser setTitle={(x) => console.log(x)} setCategory={(x) => console.log(x)}/>}/>
       </Routes>
     </BrowserRouter>
   );
