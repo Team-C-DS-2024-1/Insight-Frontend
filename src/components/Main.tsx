@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { libros, Libro } from "../data/data";
-import "../App.css"
 
-// Simulamos una pila pendiente
 class PendingStack {
   private stack: string[] = [];
-  
+
   full() {
-    return this.stack.length >= 10; // Máximo de 10 elementos en la pila
+    return this.stack.length >= 10;
   }
 
-  empty(){
+  empty() {
     return this.stack.length == 0;
   }
 
@@ -22,7 +20,7 @@ class PendingStack {
     return this.stack[this.stack.length - 1];
   }
 
-  pop(){
+  pop() {
     this.stack.pop();
   }
 }
@@ -33,42 +31,44 @@ function Main() {
   const [category, setCategory] = useState<string>("");
   const [pending, setPending] = useState<string[]>([]);
 
-  // Función que maneja el cambio de categoría
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
 
-  // Función que maneja el agregar libro a la lista de pendientes
   const addToPending = (book: Libro) => {
     if (pendingStack.full()) {
-      alert("Pending stack is full!"); // Muestra un mensaje de advertencia
+      alert("Pending stack is full!");
     } else {
       pendingStack.push(`<strong>Author:</strong> ${book.author} <br><strong>Title:</strong> ${book.title}`);
-      setPending([...pending, pendingStack.topElement()]); // Actualizamos la lista de pendientes
+      setPending([...pending, pendingStack.topElement()]);
     }
   };
 
   const deleteFromPending = () => {
     if (pendingStack.empty()) {
-      alert("Pending stack is empty!"); // Muestra un mensaje de advertencia
+      alert("Pending stack is empty!");
     } else {
       pendingStack.pop();
-      setPending([...pending.slice(0,-1)]); // Actualizamos la lista de pendientes
+      setPending([...pending.slice(0, -1)]);
     }
   };
 
-  // Filtramos los libros por categoría seleccionada
-  const filteredBooks = libros.filter(b => b.category === category);
+  const filteredBooks = libros.filter((b) => b.category === category);
 
   return (
-    <div className="discoverBooks content">
-      <div className="head">
-        <h1>Discover Books</h1>
-        <blockquote>"If you don’t like to read, you haven’t found the right book." - J.K. Rowling</blockquote>
+    <div className="w-4/5 mx-auto flex flex-col items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-serif">Discover Books</h1>
+        <blockquote className="italic mt-2">"If you don’t like to read, you haven’t found the right book." - J.K. Rowling</blockquote>
       </div>
-      
-      {/* Select de categorías */}
-      <select name="categoryBooks" id="categoryBooks" value={category} onChange={handleCategoryChange}>
+
+      <select
+        name="categoryBooks"
+        id="categoryBooks"
+        value={category}
+        onChange={handleCategoryChange}
+        className="border mt-4 p-2 rounded-md"
+      >
         <option value="">-</option>
         <option value="Nonfiction">Nonfiction</option>
         <option value="Thriller">Thriller</option>
@@ -76,14 +76,17 @@ function Main() {
         <option value="Fantasy">Fantasy</option>
         <option value="Fiction">Fiction</option>
       </select>
-      
-      <ul id="results">
-        {/* Renderizamos los libros filtrados */}
+
+      <ul className="grid grid-cols-3 gap-8 mt-8 w-full">
         {filteredBooks.map((book) => (
-          <li key={book.isbn}>
-            <div className="filteredContent">
-              <p>Title: {book.title}</p>
-              <button id={`addButton${book.isbn}`} onClick={() => addToPending(book)}>
+          <li key={book.isbn} className="list-none">
+            <div className="flex flex-col items-center justify-between h-20">
+              <p className="text-center">Title: {book.title}</p>
+              <button
+                id={`addButton${book.isbn}`}
+                onClick={() => addToPending(book)}
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500"
+              >
                 Add to pending
               </button>
             </div>
@@ -91,14 +94,18 @@ function Main() {
         ))}
       </ul>
 
-      {/* Mostramos los libros pendientes */}
-      <h3>Pending Books</h3>
-      <ul id="pending">
+      <h3 className="text-2xl font-bold mt-10">Pending Books</h3>
+      <ul className="text-center mt-4">
         {pending.map((item, index) => (
-          <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
+          <li key={index} dangerouslySetInnerHTML={{ __html: item }} className="mb-2"></li>
         ))}
       </ul>
-      <button onClick={() => deleteFromPending()}> Read / Delete </button>
+      <button
+        onClick={() => deleteFromPending()}
+        className="bg-red-600 text-white px-4 py-2 mt-4 rounded-md hover:bg-red-500"
+      >
+        Read / Delete
+      </button>
     </div>
   );
 }

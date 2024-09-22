@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Cormorant: ['Cormorant Upright', 'sans-serif'],
+        raleway: ['Raleway', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
