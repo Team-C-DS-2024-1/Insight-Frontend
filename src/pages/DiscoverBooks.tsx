@@ -71,7 +71,7 @@ function DiscoverBooks(){
     return(
         <>  
             <Nav/>
-            <Browser setTitle={(t) => setTitle(t)} setCategory={(c) => setCategory(c)}/>
+            <Browser setTitle={(t) => setTitle(t)} setCategory={(c) => setCategory(c)} setFilter={(f) => setFilter(f)}/>
             <div className="text-center">
                 {loadContent()}
             </div>

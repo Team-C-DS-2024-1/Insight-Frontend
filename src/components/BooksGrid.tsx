@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Book from "../interfaces/Book";import { getPending, updatePending } from "../api/BookApi";
+import { Link } from "react-router-dom";
 ;
 
 class PendingStack {
@@ -66,10 +67,9 @@ function BooksGrid(props: BooksArr) {
             const currp: string[]  = [];
             const curra: Book[] = [];
             if(res){
+                while(!pendingStack.empty()) pendingStack.pop();
                 res.data.map(b => {
-                    if (pendingStack.full()) {
-                        alert("Pending stack is full!");
-                    } else {
+                    if (!pendingStack.full()) {
                         pendingStack.push(`<strong>Author:</strong> ${b.author} <br><strong>Title:</strong> ${b.title}`);
                         currp.push(`<strong>Author:</strong> ${b.author} <br><strong>Title:</strong> ${b.title}`);
                         curra.push(b);
@@ -93,7 +93,9 @@ function BooksGrid(props: BooksArr) {
         {books.map((book) => (
           <li key={book.isbn} className="list-none">
             <div className="flex flex-col items-center justify-between h-20">
-              <p className="text-center">Title: {book.title}</p>
+              <p className="text-center hover:cursor-pointer transition-[0.3s] hover:text-blue-500">
+                Title: <Link to={`../books/${book.isbn}`} target="_blank">{book.title}</Link> 
+                </p>
               <button
                 id={`addButton${book.isbn}`}
                 onClick={() => addToPending(book)}

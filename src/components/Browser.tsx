@@ -5,6 +5,7 @@ type CallbackFunction = (x:string) => void;
 interface props {
     setTitle: CallbackFunction;
     setCategory: CallbackFunction;
+    setFilter: CallbackFunction;
 }
 
 /**
@@ -15,7 +16,7 @@ function Browser(callbacks: props){
     const options = ["Title", "Category"];
     const [option, setOption] = useState(options[0]);
     const [currT, setCurrT] = useState("");
-    const { setTitle, setCategory } = callbacks;
+    const { setTitle, setCategory, setFilter } = callbacks;
 
     const loadSearch = () => {
         if(option == options[0]){
@@ -42,16 +43,19 @@ function Browser(callbacks: props){
     return(
         <div>
             <div className="text-center px-5">
-                <h1 className="text-3xl">Discover Books</h1>
+                <h1 className="text-3xl font-Cormorant">Discover Books</h1>
                 <blockquote className="text-sm text-black italic text-opacity-50">"If you don’t like to read, you haven’t found the right book." - J.K. Rowling</blockquote>
             </div>
             <div className="text-center">
-                <h3 className="text-lg my-4">Search by:</h3>
+                <h3 className="text-xl my-4 font-Cormorant">Search by:</h3>
                 <div className="flex px-[100px] mx-[550px]">
                     {options.map((o,i) => {
                         return (
                         <div className={`${options[i] == option ? "bg-[#C7C7C7]" : ""} mx-7 w-[100px] h-[23px] rounded-md text-center`}>
-                            <span className="hover:cursor-pointer" onClick={() => setOption(o)}>{o}</span>
+                            <span className="hover:cursor-pointer" onClick={() => {
+                                setOption(o);
+                                setFilter(o);
+                            }}>{o}</span>
                         </div>
                         );
                     })}

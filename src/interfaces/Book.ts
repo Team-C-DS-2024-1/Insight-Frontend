@@ -4,7 +4,7 @@ interface Book {
     category: string;
     author: string;
     score: number;
-    reviews: any[]; 
+    reviews: string[]; 
 }
 
 export default Book;
