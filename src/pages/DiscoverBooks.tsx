@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
 
 import Nav from "../components/Nav";
+import Book from "../interfaces/Book";
 import Browser from "../components/Browser";
 import BooksGrid from "../components/BooksGrid";
-import { getAllBooks, getBookByTitle } from "../api/BookApi";
+import { getAllBooks, getBookByTitle, getBooksByCategory } from "../api/BookApi";
 
 function DiscoverBooks(){
     const [filter, setFilter] = useState("Title");
     const [title, setTitle] = useState<string | null>(null);
     const [category, setCategory] = useState<string | null>(null);
-    const [books, setBooks] = useState<Array<any> | null>(null);
+    const [books, setBooks] = useState<Book[] | null>(null);
     const [notFound, setNotFound] = useState(false);
 
     const loadContent = () => {
@@ -60,8 +61,32 @@ function DiscoverBooks(){
             }
         }
 
+        const fetchByCategory = async () => {
+            if(category === null){
+                fetchAll();
+            } else {
+                try {
+                    const res = await getBooksByCategory(category);
+                    setBooks(res.data);
+                    setNotFound(false);
+                } catch (e) {
+                    if(e instanceof AxiosError){
+                        if(e.response?.status === 404){
+                            setNotFound(true);
+                        } else {
+                            alert(e);
+                        }
+                    } else {
+                        alert(e);
+                    }
+                }
+            }
+        }
+
         if(filter === "Title"){
             fetchByTitle();
+        } else if (filter === "Category") {
+            fetchByCategory();
         } else {
             fetchAll();
         }
